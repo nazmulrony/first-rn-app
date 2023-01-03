@@ -21,7 +21,9 @@ export default function App() {
         ]);
         console.log(names);
     };
-
+    const deleteNameHandler = (id) => {
+        setNames(names.filter((name) => name.id !== id));
+    };
     return (
         <View style={styles.appContainer}>
             <NameInput onAddName={addNameHandler} />
@@ -29,7 +31,12 @@ export default function App() {
                 <FlatList
                     data={names}
                     renderItem={(itemData) => {
-                        return <NameItem itemData={itemData} />;
+                        return (
+                            <NameItem
+                                itemData={itemData}
+                                onDeleteName={deleteNameHandler}
+                            />
+                        );
                     }}
                     keyExtractor={(item, idex) => {
                         return item.id;

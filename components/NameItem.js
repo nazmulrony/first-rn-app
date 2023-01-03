@@ -1,10 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const NameItem = ({ itemData }) => {
+const NameItem = ({ itemData, onDeleteName }) => {
+    const deleteNameHandler = () => {
+        onDeleteName(itemData.item.id);
+    };
     return (
-        <View style={styles.nameBox}>
-            <Text style={styles.textName}>{itemData.item.text}</Text>
-        </View>
+        <Pressable onPress={deleteNameHandler}>
+            <View style={styles.nameBox}>
+                <Text style={styles.textName}>{itemData.item.text}</Text>
+            </View>
+        </Pressable>
     );
 };
 
