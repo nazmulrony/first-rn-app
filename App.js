@@ -1,47 +1,53 @@
-
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from "react";
+import {
+    Button,
+    FlatList,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+} from "react-native";
+import NameInput from "./components/NameInput";
+import NameItem from "./components/NameItem";
 
 export default function App() {
-  return (
-    <View style={styles.appContainer}>
-      
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder='Enter your Name'/>
-        <Button title='Add Name'/>
-      </View>
-      <View style={styles.nameContainer}>
-        <Text>Name List..</Text>
-      </View>
-    </View>
-  );
+    const [names, setNames] = useState([]);
+
+    const addNameHandler = (enteredName) => {
+        setNames((currentNames) => [
+            ...names,
+            { text: enteredName, id: Math.random().toString() },
+        ]);
+        console.log(names);
+    };
+
+    return (
+        <View style={styles.appContainer}>
+            <NameInput onAddName={addNameHandler} />
+            <View style={styles.nameContainer}>
+                <FlatList
+                    data={names}
+                    renderItem={(itemData) => {
+                        return <NameItem itemData={itemData} />;
+                    }}
+                    keyExtractor={(item, idex) => {
+                        return item.id;
+                    }}
+                />
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  
-appContainer:{
-paddingTop:50,
-paddingHorizontal:16,
-flex:1
-},
-inputContainer:{
-  flex:1,
-  flexDirection:'row',
-  justifyContent: 'space-between',
-  alignItems:'center',
-  borderBottomWidth: 1,
-  borderColor: '#ccc',
-  marginBottom:24
-  
-},
-textInput:{
-  width: '70%',
-  borderWidth:1,
-  borderColor: '#ccc',
-  marginRight:8,
-  padding:8
-  
-},
-nameContainer:{
-flex:5,
-}
+    appContainer: {
+        paddingTop: 50,
+        paddingHorizontal: 16,
+        flex: 1,
+    },
+
+    nameContainer: {
+        flex: 5,
+    },
 });
