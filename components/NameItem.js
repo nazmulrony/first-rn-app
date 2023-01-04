@@ -5,11 +5,16 @@ const NameItem = ({ itemData, onDeleteName }) => {
         onDeleteName(itemData.item.id);
     };
     return (
-        <Pressable onPress={deleteNameHandler}>
-            <View style={styles.nameBox}>
+        <View style={styles.nameBox}>
+            <Pressable
+                android_ripple={{ color: "#41817e" }}
+                onPress={deleteNameHandler}
+                //for IOS
+                style={({ pressed }) => pressed && styles.pressedItem}
+            >
                 <Text style={styles.textName}>{itemData.item.text}</Text>
-            </View>
-        </Pressable>
+            </Pressable>
+        </View>
     );
 };
 
@@ -21,9 +26,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#4B8F8C",
         borderRadius: 8,
         margin: 8,
-        padding: 8,
+    },
+    pressedItem: {
+        opacity: 0.5,
     },
     textName: {
         color: "white",
+        padding: 8,
     },
 });

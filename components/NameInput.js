@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Button, Modal, StyleSheet, TextInput, View } from "react-native";
 
-const NameInput = ({ onAddName }) => {
+const NameInput = ({ onAddName, visible, setVisible }) => {
     const [enteredName, setEnteredName] = useState("");
 
     function nameInputHandler(enteredText) {
@@ -12,15 +12,32 @@ const NameInput = ({ onAddName }) => {
         setEnteredName("");
     };
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                onChangeText={nameInputHandler}
-                style={styles.textInput}
-                placeholder="Enter your Name"
-                value={enteredName}
-            />
-            <Button onPress={handleAddName} title="Add Name" />
-        </View>
+        <Modal visible={visible} animationType="slide">
+            <View style={styles.inputContainer}>
+                <TextInput
+                    onChangeText={nameInputHandler}
+                    style={styles.textInput}
+                    placeholder="Enter your Name"
+                    value={enteredName}
+                />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Button
+                            onPress={handleAddName}
+                            title="Add Name"
+                            color={"#4B8F8C"}
+                        />
+                    </View>
+                    <View style={styles.button}>
+                        <Button
+                            title="Cancel"
+                            color={"#EF476F"}
+                            onPress={() => setVisible(false)}
+                        />
+                    </View>
+                </View>
+            </View>
+        </Modal>
     );
 };
 
@@ -29,11 +46,9 @@ export default NameInput;
 const styles = StyleSheet.create({
     inputContainer: {
         flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "center",
-        borderBottomWidth: 1,
-        borderColor: "#ccc",
+
         marginBottom: 24,
     },
     textInput: {
@@ -42,5 +57,12 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         marginRight: 8,
         padding: 8,
+    },
+    buttonContainer: {
+        marginTop: 16,
+        flexDirection: "row",
+    },
+    button: {
+        marginRight: 8,
     },
 });

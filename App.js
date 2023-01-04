@@ -1,18 +1,11 @@
 import { useState } from "react";
-import {
-    Button,
-    FlatList,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
-} from "react-native";
+import { Button, FlatList, StyleSheet, View } from "react-native";
 import NameInput from "./components/NameInput";
 import NameItem from "./components/NameItem";
 
 export default function App() {
     const [names, setNames] = useState([]);
+    const [modalIsVisible, setModalIsVisible] = useState(false);
 
     const addNameHandler = (enteredName) => {
         setNames((currentNames) => [
@@ -26,7 +19,18 @@ export default function App() {
     };
     return (
         <View style={styles.appContainer}>
-            <NameInput onAddName={addNameHandler} />
+            <Button
+                onPress={() => setModalIsVisible(true)}
+                title="Add New Name"
+                color="#4B8F8C"
+            />
+            {modalIsVisible && (
+                <NameInput
+                    onAddName={addNameHandler}
+                    visible={modalIsVisible}
+                    setVisible={setModalIsVisible}
+                />
+            )}
             <View style={styles.nameContainer}>
                 <FlatList
                     data={names}
