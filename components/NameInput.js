@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, Modal, StyleSheet, TextInput, View } from "react-native";
+import {
+    Button,
+    Image,
+    Modal,
+    StyleSheet,
+    TextInput,
+    View,
+} from "react-native";
 
 const NameInput = ({ onAddName, visible, setVisible }) => {
     const [enteredName, setEnteredName] = useState("");
@@ -14,6 +21,10 @@ const NameInput = ({ onAddName, visible, setVisible }) => {
     return (
         <Modal visible={visible} animationType="slide">
             <View style={styles.inputContainer}>
+                <Image
+                    style={styles.image}
+                    source={require("../assets/images/goal.png")}
+                />
                 <TextInput
                     onChangeText={nameInputHandler}
                     style={styles.textInput}
@@ -45,18 +56,26 @@ export default NameInput;
 
 const styles = StyleSheet.create({
     inputContainer: {
+        backgroundColor: "#1b6a66",
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-
         marginBottom: 24,
+        padding: 16,
+    },
+    image: {
+        width: 100,
+        height: 100,
+        margin: 16,
     },
     textInput: {
-        width: "70%",
+        width: "100%",
         borderWidth: 1,
-        borderColor: "#ccc",
-        marginRight: 8,
+        borderColor: "#a4dfdc",
+        backgroundColor: "#a4dfdc",
+        color: "#1b6a66",
         padding: 8,
+        borderRadius: 8,
     },
     buttonContainer: {
         marginTop: 16,
@@ -64,5 +83,6 @@ const styles = StyleSheet.create({
     },
     button: {
         marginRight: 8,
+        width: 100,
     },
 });
